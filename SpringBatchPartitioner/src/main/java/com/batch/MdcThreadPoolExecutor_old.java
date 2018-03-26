@@ -11,39 +11,39 @@ import org.slf4j.MDC;
 
 
 
-public class MdcThreadPoolExecutor extends ThreadPoolExecutor {
+public class MdcThreadPoolExecutor_old extends ThreadPoolExecutor {
 
     final private boolean useFixedContext;
-    final private Map<String, Object> fixedContext;
+    final private Map<String, String> fixedContext;
 
     /**
      * Pool where task threads take MDC from the submitting thread.
      */
-    public static MdcThreadPoolExecutor newWithInheritedMdc(int corePoolSize, int maximumPoolSize, long keepAliveTime,
+    public static MdcThreadPoolExecutor_old newWithInheritedMdc(int corePoolSize, int maximumPoolSize, long keepAliveTime,
                                                             TimeUnit unit, BlockingQueue<Runnable> workQueue) {
-        return new MdcThreadPoolExecutor(null, corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
+        return new MdcThreadPoolExecutor_old(null, corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
     }
 
     /**
      * Pool where task threads take fixed MDC from the thread that creates the pool.
      */
     @SuppressWarnings("unchecked")
-    public static MdcThreadPoolExecutor newWithCurrentMdc(int corePoolSize, int maximumPoolSize, long keepAliveTime,
+    public static MdcThreadPoolExecutor_old newWithCurrentMdc(int corePoolSize, int maximumPoolSize, long keepAliveTime,
                                                           TimeUnit unit, BlockingQueue<Runnable> workQueue) {
-        return new MdcThreadPoolExecutor(MDC.getCopyOfContextMap(), corePoolSize, maximumPoolSize, keepAliveTime, unit,
+        return new MdcThreadPoolExecutor_old(MDC.getCopyOfContextMap(), corePoolSize, maximumPoolSize, keepAliveTime, unit,
                 workQueue);
     }
 
     /**
      * Pool where task threads always have a specified, fixed MDC.
      */
-    public static MdcThreadPoolExecutor newWithFixedMdc(Map<String, Object> fixedContext, int corePoolSize,
+    public static MdcThreadPoolExecutor_old newWithFixedMdc(Map<String, String> fixedContext, int corePoolSize,
                                                         int maximumPoolSize, long keepAliveTime, TimeUnit unit,
                                                         BlockingQueue<Runnable> workQueue) {
-        return new MdcThreadPoolExecutor(fixedContext, corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
+        return new MdcThreadPoolExecutor_old(fixedContext, corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
     }
 
-    private MdcThreadPoolExecutor(Map<String, Object> fixedContext, int corePoolSize, int maximumPoolSize,
+    private MdcThreadPoolExecutor_old(Map<String, String> fixedContext, int corePoolSize, int maximumPoolSize,
                                   long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
         this.fixedContext = fixedContext;
@@ -51,7 +51,7 @@ public class MdcThreadPoolExecutor extends ThreadPoolExecutor {
     }
 
     @SuppressWarnings("unchecked")
-    private Map<String, Object> getContextForTask() {
+    private Map<String, String> getContextForTask() {
         return useFixedContext ? fixedContext : MDC.getCopyOfContextMap();
     }
 
@@ -64,7 +64,7 @@ public class MdcThreadPoolExecutor extends ThreadPoolExecutor {
         super.execute(wrap(command, getContextForTask()));
     }
 
-    public static Runnable wrap(final Runnable runnable, final Map<String, Object> context) {
+    public static Runnable wrap(final Runnable runnable, final Map<String, String> context) {
         return new Runnable() {
             @Override
             public void run() {
