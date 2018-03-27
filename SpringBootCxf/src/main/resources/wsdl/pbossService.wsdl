@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:schema="http://services.cmcc.com/pboss/pbossService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+targetNamespace="http://services.cmcc.com/pboss/pbossService">
+  <wsdl:types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://services.cmcc.com/pboss/pbossService" 
+    targetNamespace="http://services.cmcc.com/pboss/pbossService">
+	
+	
+	<xsd:complexType name="BipType">
+		<xsd:all>
+			    <xsd:element name="BipCode" type="xsd:string"/>
+				<xsd:element name="ActivityCode"  type="xsd:string"/>
+				<xsd:element name="ActionCode"  type="xsd:string"/>	
+				
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="RoutingInfo">
+		<xsd:all>
+			    <xsd:element name="OrigDomain" type="xsd:string"/>
+				<xsd:element name="RouteType"  type="xsd:string"/>
+				 <xsd:element name="Routing" type="tns:Routing"/>
+				
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Routing">
+		<xsd:all>
+			    <xsd:element name="HomeDomain" type="xsd:string"/>
+				<xsd:element name="RouteValue"  type="xsd:string"/>
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:complexType name="TransInfo">
+		<xsd:all>				
+				<xsd:element name="SessionId"  type="xsd:string"/>	
+				<xsd:element name="TransIDO"  type="xsd:string"/>		
+				<xsd:element name="TransIDOTime"  type="xsd:string"/>	
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:complexType name="SNReserve">
+		<xsd:all>				
+				<xsd:element name="TransIDC"  type="xsd:string"/>	
+				<xsd:element name="ConvID"  type="xsd:string"/>		
+				<xsd:element name="CutOffDay"  type="xsd:string"/>
+				<xsd:element name="OSNTime"  type="xsd:string"/>
+				<xsd:element name="OSNDUNS"  type="xsd:string"/>
+				<xsd:element name="HSNDUNS"  type="xsd:string"/>
+				<xsd:element name="MsgSender"  type="xsd:string"/>
+				<xsd:element name="MsgReceiver"  type="xsd:string"/>
+				<xsd:element name="Priority"  type="xsd:string"/>
+				<xsd:element name="ServiceLevel"  type="xsd:string"/>
+				<xsd:element name="SvcContType"  type="xsd:string"/>	
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:element name="InterBossRequest">
+		<xsd:complexType>
+                   <xsd:sequence>
+                   <xsd:element name="Version"  type="xsd:string"/>
+                   <xsd:element name="TestFlag"  type="xsd:string"/>
+                       <xsd:element name="BipType" type="tns:BipType"/>
+					   <xsd:element name="RoutingInfo" type="tns:RoutingInfo"/>
+					    <xsd:element name="TransInfo" type="tns:TransInfo"/>
+					     <xsd:element name="SNReserve" type="tns:SNReserve"/>
+                    </xsd:sequence>
+           </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="InterBossResponse">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="OprSeq" type="xsd:string"/>				
+				<xsd:element name="RspCode"  type="xsd:string"/>
+				<xsd:element name="RspDesc"  type="xsd:string" minOccurs="0"/>				
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="InterBossRequest">
+    <wsdl:part element="schema:InterBossRequest" name="InterBossRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="InterBossResponse">
+    <wsdl:part element="schema:InterBossResponse" name="InterBossResponse">
+    </wsdl:part>
+  </wsdl:message>
+  
+  
+  <wsdl:portType name="PbossManager">
+    <wsdl:operation name="interBossCall">
+      <wsdl:input message="schema:InterBossRequest" name="InterBossRequest">
+    </wsdl:input>
+      <wsdl:output message="schema:InterBossResponse" name="InterBossResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PbossServiceBinding" type="schema:PbossManager">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="interBossCall">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="InterBossRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="InterBossResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PbossService">
+    <wsdl:port binding="schema:PbossServiceBinding" name="PbossServicePort">
+      <soap:address location="http://localhost:8080/PBOSS/services/pbossManager"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

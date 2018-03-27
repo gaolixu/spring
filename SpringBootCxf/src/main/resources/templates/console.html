@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>jquery</title>
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+  /*<![CDATA[*/
+  function postData() {
+    var data = 'method=' + $('#method').val() + '&action=' + $('#action').val();
+    alert(data)
+ 
+    $.ajax({
+      type : 'POST',
+      url : '${pageContext.request.contextPath}/startMock',
+      data : data,
+      success : function(r) {
+    	  alert(r)
+    	  $('#action').val(r[result])
+      },
+      error : function() {
+        alert('Fail!')
+      }
+    });
+  }
+ 
+  function runTest() {
+	 
+	  
+    var req =  $('#request').val();
+     
+      var data = {
+	      requestString : req
+	      
+	    };
+      alert(JSON.stringify(data))
+    $.ajax({
+      type : 'POST',
+      contentType : 'application/json',
+      url : '/PBOSS/runTest',
+      data : JSON.stringify(data),
+     
+      success : function(r) {
+    	  var result = r['result']
+    	  
+    		  $('#response').val(result)
+    	  
+      },
+      error : function(XMLHttpRequest, textStatus, errorThrown) {
+    	  alert(XMLHttpRequest.status);
+    	  alert(XMLHttpRequest.readyState);
+    	  alert(textStatus);
+
+      }
+    });
+  }
+  
+ 
+  /*]]>*/
+</script>
+</head>
+<body>
+PBOSS测试平台:
+
+  <br /> 
+  Request:
+ <textarea id='request' cols="80" rows="30"></textarea>
+ Response:
+ <textarea id='response' cols="60" rows="20"></textarea>
+  <input id="run" value="RUN" type="button" onclick="runTest()" />
+  
+  <br /> 
+ 
+</body>
+</html>

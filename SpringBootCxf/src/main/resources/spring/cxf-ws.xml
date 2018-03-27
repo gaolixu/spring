@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:cxf="http://cxf.apache.org/core"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+                http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <!-- Load CXF modules from cxf.jar -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+
+    <!-- Enable message logging using the CXF logging feature -->
+
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+
+    <!-- Service endpoint -->
+
+    <jaxws:endpoint address="/pbossManager"
+                    implementorClass="com.cmcc.services.pboss.pbossservice.PbossManager"
+                 >
+        <jaxws:implementor>
+            <bean class="com.cmcc.pboss.PbossEndpoint"/>
+        </jaxws:implementor>
+        <!-- <jaxws:properties>
+              <entry key="schema-validation-enabled" value="${stw.schema.validation.enabled}" />
+        </jaxws:properties> -->
+    </jaxws:endpoint>
+    
+    
+    
+</beans>

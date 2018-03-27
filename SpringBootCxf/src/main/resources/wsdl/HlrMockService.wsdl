@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:schema="http://services.symbio.com/mock/hlrService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+targetNamespace="http://services.symbio.com/mock/hlrService">
+  <wsdl:types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://services.symbio.com/mock/hlrService" 
+    targetNamespace="http://services.symbio.com/mock/hlrService">
+	
+	
+	<xsd:complexType name="MemberInfo">
+		<xsd:all>
+			    <xsd:element name="OprSeq" type="xsd:string"/>
+				<xsd:element name="OprTime"  type="xsd:string"/>
+				<xsd:element name="OprCode"  type="xsd:string"/>	
+				<xsd:element name="ApplyChannel"  type="xsd:string"/>							
+				<xsd:element name="BillingID"  type="xsd:string" minOccurs="0"/>	
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ProdInfo">
+		<xsd:all>				
+				<xsd:element name="ProdID"  type="xsd:string"/>	
+				<xsd:element name="ProdInstID"  type="xsd:string"/>		
+				<xsd:element name="ProdInstExpTime"  type="xsd:string"/>	
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:element name="ECMemberOrderInfoRequest">
+		<xsd:complexType>
+                   <xsd:sequence>
+                       <xsd:element name="MemberInfo" type="tns:MemberInfo"/>
+					   <xsd:element name="ProdInfo" type="tns:ProdInfo"/>
+                    </xsd:sequence>
+           </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ECMemberOrderInfoResponse">
+		<xsd:complexType>
+			<xsd:all>			   
+				<xsd:element name="OprSeq" type="xsd:string"/>				
+				<xsd:element name="RspCode"  type="xsd:string"/>
+				<xsd:element name="RspDesc"  type="xsd:string" minOccurs="0"/>				
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ECMemberOrderInfoRequest">
+    <wsdl:part element="schema:ECMemberOrderInfoRequest" name="ECMemberOrderInfoRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ECMemberOrderInfoResponse">
+    <wsdl:part element="schema:ECMemberOrderInfoResponse" name="ECMemberOrderInfoResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="hlrServicePort">
+    <wsdl:operation name="syncCont">
+      <wsdl:input message="schema:ECMemberOrderInfoRequest" name="ECMemberOrderInfoRequest">
+    </wsdl:input>
+      <wsdl:output message="schema:ECMemberOrderInfoResponse" name="ECMemberOrderInfoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="hlrServiceBinding" type="schema:hlrServicePort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="syncCont">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ECMemberOrderInfoRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ECMemberOrderInfoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="hlrServiceService">
+    <wsdl:port binding="schema:hlrServiceBinding" name="hlrServicePortPort">
+      <soap:address location="http://localhost:8089/mock/hlrService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

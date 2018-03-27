@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>jquery</title>
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+  /*<![CDATA[*/
+  function postData() {
+    var data = 'method=' + $('#method').val() + '&action=' + $('#action').val();
+    alert(data)
+ 
+    $.ajax({
+      type : 'POST',
+      url : '${pageContext.request.contextPath}/startMock',
+      data : data,
+      success : function(r) {
+    	  alert(r)
+    	  $('#action').val(r[result])
+      },
+      error : function() {
+        alert('Fail!')
+      }
+    });
+  }
+ 
+  function mockAllnet() {
+	 var selectedAction= $('#action').val() 
+	 if(selectedAction=='启动'){
+		 selectedAction = 'start'
+	 }else{
+		 selectedAction = 'stop'
+	 }
+	  
+    var data = {
+      method : $('#method').val(),
+      action : selectedAction
+    };
+    $.ajax({
+      type : 'POST',
+      contentType : 'application/json',
+      url : '/Mock/mockAllnet',
+      data : JSON.stringify(data),
+      success : function(r) {
+    	  var result = r['result']
+    	  if(result=='started'){
+    		  $('#action').val('停止')
+    	  }
+    	  if(result=='stopped'){
+    		  $('#action').val('启动')
+    	  }
+      },
+      error : function(XMLHttpRequest, textStatus, errorThrown) {
+    	  alert(XMLHttpRequest.status);
+    	  alert(XMLHttpRequest.readyState);
+    	  alert(textStatus);
+
+      }
+    });
+  }
+  
+  function mockHlr() {
+		 var selectedAction= $('#action2').val() 
+		 if(selectedAction=='启动'){
+			 selectedAction = 'start'
+		 }else{
+			 selectedAction = 'stop'
+		 }
+		  
+	    var data = {
+	      method : $('#method2').val(),
+	      action : selectedAction
+	    };
+	    $.ajax({
+	      type : 'POST',
+	      contentType : 'application/json',
+	      url : '/Mock/mockHlr',
+	      data : JSON.stringify(data),
+	      success : function(r) {
+	    	  var result = r['result']
+	    	  if(result=='started'){
+	    		  $('#action2').val('停止')
+	    	  }
+	    	  if(result=='stopped'){
+	    		  $('#action2').val('启动')
+	    	  }
+	      },
+	      error : function() {
+	    	  alert('操作失败');
+	      }
+	    });
+	  }
+  /*]]>*/
+</script>
+</head>
+<body>
+仿真全网运行管理平台: 
+ <select id="method"> 
+    <option value="success">成功</option> 
+    <option value="fail">失败</option> 
+    <option value="order">顺序</option> 
+    <option value="random">随机</option>
+    <option value="script">脚本</option> 
+   </select>  
+  <input id="action" value="启动" type="button" onclick="mockAllnet()" />
+  
+  <br /> 
+  
+  仿真物联网HLR: 
+ <select id="method2"> 
+    <option value="success">成功</option> 
+    <option value="fail">失败</option> 
+    <option value="order">顺序</option> 
+    <option value="random">随机</option>
+    <option value="script">脚本</option> 
+   </select>  
+  <input id="action2" value="启动" type="button" onclick="mockHlr()" />
+  
+  <br /> 
+  
+</body>
+</html>

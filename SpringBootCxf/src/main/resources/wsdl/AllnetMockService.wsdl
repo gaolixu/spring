@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:schema="http://services.symbio.com/mock/allnetService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+targetNamespace="http://services.symbio.com/mock/allnetService">
+  <wsdl:types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://services.symbio.com/mock/allnetService" 
+    targetNamespace="http://services.symbio.com/mock/allnetService">
+	
+	
+	<xsd:complexType name="PersonInfo">
+		<xsd:all>
+			    <xsd:element name="OprSeq" type="xsd:string"/>
+				<xsd:element name="OprTime"  type="xsd:string"/>
+				<xsd:element name="OprCode"  type="xsd:string"/>	
+				<xsd:element name="ApplyChannel"  type="xsd:string"/>							
+				<xsd:element name="Status"  type="xsd:string"/>	
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ProdInfo">
+		<xsd:all>				
+				<xsd:element name="ProdId"  type="xsd:string"/>	
+				<xsd:element name="SubsId"  type="xsd:string"/>		
+				<xsd:element name="ProdInstExpTime"  type="xsd:string"/>	
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:element name="PersonOrderInfoRequest">
+		<xsd:complexType>
+                   <xsd:sequence>
+                       <xsd:element name="PersonInfo" type="tns:PersonInfo"/>
+					   <xsd:element name="ProdInfo" type="tns:ProdInfo"/>
+                    </xsd:sequence>
+           </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PersonOrderInfoResponse">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="OprSeq" type="xsd:string"/>				
+				<xsd:element name="RspCode"  type="xsd:string"/>
+				<xsd:element name="RspDesc"  type="xsd:string" minOccurs="0"/>				
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="PersonOrderInfoRequest">
+    <wsdl:part element="schema:PersonOrderInfoRequest" name="PersonOrderInfoRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PersonOrderInfoResponse">
+    <wsdl:part element="schema:PersonOrderInfoResponse" name="PersonOrderInfoResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="allnetServicePort">
+    <wsdl:operation name="syncUserInfo">
+      <wsdl:input message="schema:PersonOrderInfoRequest" name="PersonOrderInfoRequest">
+    </wsdl:input>
+      <wsdl:output message="schema:PersonOrderInfoResponse" name="PersonOrderInfoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="allnetServiceBinding" type="schema:allnetServicePort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="syncUserInfo">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="PersonOrderInfoRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="PersonOrderInfoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="allnetServiceService">
+    <wsdl:port binding="schema:allnetServiceBinding" name="allnetServicePortPort">
+      <soap:address location="http://localhost:8089/mock/allnetService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
