@@ -24,7 +24,7 @@ public class AppJobExecutionListener implements JobExecutionListener {
 		
 		MDC.put(MDC_KEY, "MDC---:"+i+i+i+i+i+" "+jonInfo);
 		//NDC.push("NDC---:"+i+" "+ jobName);
-		LOGGER.info("Job Listener : --------------------- Start " );
+		LOGGER.info("Job Listener : --------------------- Start " + Thread.currentThread().getName() );
 	}
 		
 	public void afterJob(JobExecution jobExecution) {

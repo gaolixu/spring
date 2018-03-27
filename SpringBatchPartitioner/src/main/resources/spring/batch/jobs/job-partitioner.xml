@@ -49,10 +49,12 @@
 	<!-- Jobs to run -->
 	<step id="slave" xmlns="http://www.springframework.org/schema/batch">
 		<tasklet>
-			<chunk reader="pagingItemReader" writer="flatFileItemWriter"
+			<chunk reader="pagingItemReader" writer="partitionerUserItemWriter"
 				processor="itemProcessor" commit-interval="1" />
 		</tasklet>
 	</step>
+	
+	  <bean id="partitionerUserItemWriter" class="com.batch.UserWriter"/>
 
 	<bean id="rangePartitioner" class="com.batch.partition.RangePartitioner" />
 

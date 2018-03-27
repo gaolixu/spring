@@ -41,7 +41,7 @@
         <!-- <property name="resource" value="file:./sample.csv" /> -->
 <!-- 多个文件读取  读取文件的位置 -->
         <!-- <property name="resources" value="file:#{jobParameters['inputFile']}" /> -->
-        <property name="resources" value="file:D:/CCSP/report/users*.csv" />
+        <property name="resources" value="file:C:/Temp/batch/user*.csv" />
     <!-- 引入单个文件的读取对象 -->
         <property name="delegate" ref="flatFileItemReader" />
     </bean>
@@ -88,6 +88,6 @@
     
     <!-- 这是自定义的实现ItemWriter接口的ItemWriter的实现类 -->
      <!-- <bean id="jdbcItemWriter" class="com.aliyun.springbatch.sample.db.JdbcItemWriter"/> -->
-     <bean id="userItemWriter" class="com.batch.UserWriter"/>
+     <bean id="userItemWriter" class="com.batch.MultipleUserWriter"/>
 
 </beans>

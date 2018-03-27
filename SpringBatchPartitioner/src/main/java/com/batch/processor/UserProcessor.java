@@ -23,7 +23,7 @@ public class UserProcessor implements ItemProcessor<User, User> {
 	public User process(User item) throws Exception {
 		MDC.put("batch-job", MDC.get("batch-job")+"--------"+item.getId());
 		//System.out.println(threadName + " processing : " + item.getId() + " : " + item.getUsername());
-		LOGGER.info(threadName + " processing : " + item.getId() + " : " + item.getUsername());
+		//LOGGER.info(threadName + " processing : " + item.getId() + " : " + item.getUsername());
 
 		return item;
 	}

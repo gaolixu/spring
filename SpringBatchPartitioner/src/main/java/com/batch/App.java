@@ -13,6 +13,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class App {
 
 	public static void main(String[] args) {
+System.setProperty("isThreadContextMapInheritable", "true");
+
+System.setProperty("log4j2.isThreadContextMapInheritable", "true");
 
 		App obj = new App();
 		obj.run();
@@ -20,6 +23,8 @@ public class App {
 	}
 
 	private void run() {
+		
+		
 
 		String[] springConfig = { "spring/batch/jobs/job-partitioner.xml", "spring/batch/jobs/job-multiReader.xml"};
 
@@ -56,7 +61,7 @@ public class App {
 			e.printStackTrace();
 		}
 
-		System.out.println("Done");
+		System.out.println("--------------------------------------------------------Done--------------------------------");
 
 	}
 

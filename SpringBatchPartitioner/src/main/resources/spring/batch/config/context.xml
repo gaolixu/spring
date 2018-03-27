@@ -22,12 +22,12 @@
 	
 	<bean id="threadPoolTaskExecutor" class="com.batch.MdcThreadPoolTaskExecutor">
         <property name="corePoolSize" value="3" />
-       <!--  <property name="maxPoolSize" value="10" />
+         <property name="maxPoolSize" value="10" />
         <property name="queueCapacity" value="25" />
         <property name="keepAliveSeconds" value="300" />
         <property name="rejectedExecutionHandler">
             <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
-        </property> -->
+        </property> 
     </bean>
 
 </beans>
