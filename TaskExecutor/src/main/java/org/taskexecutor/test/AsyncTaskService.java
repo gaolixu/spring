@@ -3,9 +3,7 @@ package org.taskexecutor.test;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by sang on 16-12-14.
- */
+
 @Service
 public class AsyncTaskService {
     @Async
