@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<title>Title</title>
+<script type="text/javascript"
+	th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}"></script>
+<link type="text/css" rel="stylesheet"
+	th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css}" />
+<link type="text/css" rel="stylesheet"
+	th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css}" />
+</head>
+
+
+
+<body>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>name</th>
+				<th>isbn</th>
+				<th>author</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="obj : ${datas}">
+				<td th:text="${obj.id}">${obj.id}</td>
+				<td th:text="${obj.name}">${obj.name}</td>
+				<td th:text="${obj.isbn}">${obj.isbn}</td>
+				<td th:text="${obj.name}">${obj.author}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div th:include="page :: pager" th:remove="tag"></div>
+</body>
+</html>
