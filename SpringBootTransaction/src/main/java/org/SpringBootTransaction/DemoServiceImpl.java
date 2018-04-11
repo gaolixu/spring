@@ -14,8 +14,8 @@ public class DemoServiceImpl implements DemoService {
     @Override
     public Person savePersonWithRollBack(Person person) {
         Person p = personRepository.save(person);
-        if (person.getName().equals("sang")) {
-            throw new IllegalArgumentException("sang 已存在，数据将回滚");
+        if (person.getName().equals("test")) {
+            throw new IllegalArgumentException("test 已存在，数据将回滚");
         }
         return p;
     }
@@ -24,8 +24,8 @@ public class DemoServiceImpl implements DemoService {
     @Override
     public Person savePersonWithoutRollBack(Person person) {
         Person p = personRepository.save(person);
-        if (person.getName().equals("sang")) {
-            throw new IllegalArgumentException("sang已存在，但数据不会回滚");
+        if (person.getName().equals("test")) {
+            throw new IllegalArgumentException("test已存在，但数据不会回滚");
         }
         return p;
     }
