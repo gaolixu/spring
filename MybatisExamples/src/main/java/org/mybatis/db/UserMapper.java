@@ -39,5 +39,20 @@ public interface UserMapper {
   public ArrayList<User> getUserByAddressAndName3(UserParams params);
   
   public int getCount();
+  
+  
+  public List<User> getUser(@Param("address") String address);
+
+  public List<User> getUser2(@Param("id") Long id, @Param("address") String address, @Param("username") String username);
+
+  public List<User> getUser3(@Param("id") Long id, @Param("address") String address, @Param("username") String username);
+
+  public List<User> getUser4();
+
+  public void update(@Param("username") String username, @Param("id") Long id, @Param("password") String password);
+
+  public List<User> getUserInCities(@Param("cities") List<String> cities);
+
+  public List<User> getUserByName(@Param("username") String username);
 
 }

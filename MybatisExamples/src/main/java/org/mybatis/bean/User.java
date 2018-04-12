@@ -1,14 +1,13 @@
 package org.mybatis.bean;
 
+import java.io.Serializable;
 import java.util.Date;
-
-import org.apache.ibatis.type.Alias;
 
 /**
  * Created by mybatis on 17-1-13.
  */
 //@Alias("user")
-public class User {
+public class User implements Serializable{
     private Long id;
     private String username;
     private String password;
