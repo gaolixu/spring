@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * Spring Boot 应用启动类
  *
- * Created by bysocket on 09/29/2017.
+ * Created by  on 09/29/2017.
  */
 // Spring Boot 应用的标识
 @SpringBootApplication
