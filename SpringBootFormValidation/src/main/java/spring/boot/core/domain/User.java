@@ -14,7 +14,7 @@ import java.io.Serializable;
 /**
  * 用户实体类
  * <p>
- * Created by bysocket on 21/07/2017.
+ * Created by  on 21/07/2017.
  */
 @Entity
 public class User implements Serializable {

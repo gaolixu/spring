@@ -8,7 +8,7 @@ import spring.boot.core.domain.User;
 /**
  * User 业务层接口
  *
- * Created by bysocket on 18/09/2017.
+ * Created by  on 18/09/2017.
  */
 public interface UserService {
 

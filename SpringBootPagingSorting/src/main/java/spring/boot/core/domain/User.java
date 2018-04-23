@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 用户实体类
  *
- * Created by bysocket on 18/09/2017.
+ * Created by  on 18/09/2017.
  */
 @Entity
 public class User implements Serializable {

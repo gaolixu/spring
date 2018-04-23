@@ -6,7 +6,7 @@ import com.pagehelper.domain.model.Person;
 import java.util.List;
 
 /**
- * Created by yuhao.wang on 2017/6/19.
+ * Created by  on 2017/6/19.
  */
 public interface PersonService {
 
