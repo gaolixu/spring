@@ -1,0 +1,13 @@
+Spring Boot 2.0 这里有两条不同的线分别是：
+Spring Web MVC -> Spring Data
+Spring WebFlux -> Spring Data Reactive
+在Spring Data Spring中，Spring的原始Spring Data事务管理（例如JDBC）不起作用。 因为最初的JPA Spring Data基于ThreadLocal业务分布，所以本质是基于阻塞的I / O模型而不是异步的。 但是，Reactive是异步需要的，但不同线程的ThreadLocal不能获取值。 当然，你需要考虑如何使用响应式编程来做生意。 例如，回调方法被传递给conn：newTransaction（conn - > {}）。
+因为每次操作数据库也是异步的，所以 connection 在 Reactive 编程中无法靠 ThreadLocal 传递了，只能放在参数上面传递。虽然会有一定的代码侵入行。进一步，也可以 kotlin 协程，去做到透明的事务管理，即把 conn 放到 协程的局部变量中去。那 Spring Data Reactive Repositories 不支持 MySQL，进一步也不支持 MySQL 事务，怎么办？
+
+
+答案是，这个问题其实和第一个问题也相关。 为啥不支持 MySQL，即 JDBC 不支持。大家可以看到 JDBC 是所属 Spring Data 的。所以可以等待 Spring Data Reactive Repositories 升级 IO 模型，去支持 MySQL。也可以和上面也讲到了，如何使用 Reactive 编程支持事务。
+如果应用只能使用不强依赖数据事务，依旧使用 MySQL ，可以使用下面的实现，代码如下：
+
+public Mono<Long> save(City city) {
+        return Mono.create(cityMonoSink -> cityMonoSink.success(serviceImpl.save(city)));
+    }
